@@ -28,10 +28,6 @@ public class UserConfiguration : ApplicationEntityConfiguration<User>
         builder.HasMany(u => u.Cards)
             .WithMany(c => c.Users)
             .UsingEntity<UserCard>();
-        
-        builder.HasMany(u => u.GameRequests)
-            .WithOne(gr => gr.Receiver)
-            .HasForeignKey(gr => gr.ReceiverId);
 
         builder.HasIndex(u => u.Username)
             .IsUnique();

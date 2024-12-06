@@ -1,5 +1,4 @@
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.Shared;
 
@@ -17,23 +16,8 @@ public class GameConfiguration : ApplicationEntityConfiguration<Game>
         builder.Property(g => g.EndedAt)
             .IsRequired(false);
 
-        builder.HasOne(g => g.Deck1)
+        builder.HasMany(g => g.Players)
             .WithMany()
-            .HasForeignKey(g => g.Deck1Id)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne(g => g.Deck2)
-            .WithMany()
-            .HasForeignKey(g => g.Deck2Id)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne(g => g.Winner)
-            .WithMany()
-            .HasForeignKey(g => g.WinnerId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasMany(g => g.Moves)
-            .WithOne(m => m.Game)
-            .HasForeignKey(m => m.GameId);
+            .UsingEntity<GamePlayer>();
     }
 }
