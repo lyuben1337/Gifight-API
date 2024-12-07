@@ -1,16 +1,10 @@
-using Application;
-using Infrastructure;
-using Presentation;
+using Persistence;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-
-builder.Services
-    .AddApplication()
-    .AddInfrastructure()
-    .AddPresentation();
+builder.Services.AddPersistence(builder.Configuration);
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));

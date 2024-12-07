@@ -3,7 +3,7 @@ using Domain.Shared;
 
 namespace Domain.Entities;
 
-public class User : ApplicationEntity
+public class User : BaseEntity
 {
     public required string Username { get; set; }
     public required string EncryptedPassword { get; set; }

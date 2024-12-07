@@ -2,7 +2,7 @@ using Domain.Shared;
 
 namespace Domain.Entities;
 
-public class Game : ApplicationEntity
+public class Game : BaseEntity
 {
     public required List<User> Players { get; set; } = [];
     public required List<GamePlayer> GamePlayers { get; set; } = [];

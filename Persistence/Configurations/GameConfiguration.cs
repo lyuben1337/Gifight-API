@@ -14,7 +14,7 @@ public class GameConfiguration : ApplicationEntityConfiguration<Game>
             .IsRequired();
 
         builder.Property(g => g.EndedAt)
-            .IsRequired(false);
+            .IsRequired();
 
         builder.HasMany(g => g.Players)
             .WithMany()

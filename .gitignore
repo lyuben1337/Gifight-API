@@ -1,6 +1,12 @@
+# IDE
 .idea
+
+# Build
 bin/
 obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+# MacOS system files
+.DS_STORE

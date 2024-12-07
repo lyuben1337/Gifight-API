@@ -2,7 +2,7 @@ using Domain.Shared;
 
 namespace Domain.Entities;
 
-public class UserCard : ApplicationEntity
+public class UserCard : BaseEntity
 {
     public required long UserId { get; set; }
     public required User User { get; set; }

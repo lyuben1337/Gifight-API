@@ -1,6 +1,6 @@
 namespace Domain.Shared;
 
-public abstract class ApplicationEntity
+public abstract class BaseEntity
 {
     public required long Id { get; set; }
     public required DateTimeOffset CreatedAt { get; set; }
