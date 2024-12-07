@@ -4,7 +4,7 @@ using Persistence.Shared;
 
 namespace Persistence.Configurations;
 
-public class CardConfiguration : ApplicationEntityConfiguration<Card>
+public class CardConfiguration : BaseEntityConfiguration<Card>
 {
     public override void Configure(EntityTypeBuilder<Card> builder)
     {

@@ -4,7 +4,7 @@ using Persistence.Shared;
 
 namespace Persistence.Configurations;
 
-public class GameConfiguration : ApplicationEntityConfiguration<Game>
+public class GameConfiguration : BaseEntityConfiguration<Game>
 {
     public override void Configure(EntityTypeBuilder<Game> builder)
     {

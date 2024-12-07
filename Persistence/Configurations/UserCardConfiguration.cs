@@ -5,7 +5,7 @@ using Persistence.Shared;
 
 namespace Persistence.Configurations;
 
-public class UserCardConfiguration : ApplicationEntityConfiguration<UserCard>
+public class UserCardConfiguration : BaseEntityConfiguration<UserCard>
 {
     public override void Configure(EntityTypeBuilder<UserCard> builder)
     {

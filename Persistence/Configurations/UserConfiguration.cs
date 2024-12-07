@@ -6,7 +6,7 @@ using Persistence.Shared;
 
 namespace Persistence.Configurations;
 
-public class UserConfiguration : ApplicationEntityConfiguration<User>
+public class UserConfiguration : BaseEntityConfiguration<User>
 {
     public override void Configure(EntityTypeBuilder<User> builder)
     {
