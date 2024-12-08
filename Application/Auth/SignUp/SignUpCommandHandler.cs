@@ -5,24 +5,26 @@ using Domain.Errors;
 using Domain.Repositories;
 using Domain.Shared;
 using FluentValidation;
-using Mapster;
 
-namespace Application.Users.CreateUser;
+namespace Application.Auth.SignUp;
 
-public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, CreateUserCommandResponse>
+public class SignUpCommandHandler : CommandHandler<SignUpCommand, SignUpCommandResponse>
 {
+    private readonly IJwtProvider _jwtProvider;
     private readonly IPasswordEncoder _passwordEncoder;
 
-    public CreateUserCommandHandler(
+    public SignUpCommandHandler(
         IUnitOfWork unitOfWork,
-        IValidator<CreateUserCommand> validator,
+        IValidator<SignUpCommand> validator,
+        IJwtProvider jwtProvider,
         IPasswordEncoder passwordEncoder
     ) : base(unitOfWork, validator)
     {
+        _jwtProvider = jwtProvider;
         _passwordEncoder = passwordEncoder;
     }
 
-    protected override async Task<Result<CreateUserCommandResponse>> HandleCommand(CreateUserCommand request,
+    protected override async Task<Result<SignUpCommandResponse>> HandleCommand(SignUpCommand request,
         CancellationToken cancellationToken)
     {
         var user = new User
@@ -35,11 +37,14 @@ public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, Create
             await UnitOfWork.UserRepository.ExistsByUsernameAsync(user.Username, cancellationToken);
 
         if (isUsernameOccupied)
-            return Result.Failure<CreateUserCommandResponse>(UserError.UsernameOccupied(user.Username));
+            return Result.Failure<SignUpCommandResponse>(UserError.UsernameOccupied(user.Username));
 
         await UnitOfWork.UserRepository.AddAsync(user, cancellationToken);
         await UnitOfWork.SaveAsync(cancellationToken);
 
-        return Result.Success(user.Adapt<CreateUserCommandResponse>());
+        var createdUser = await UnitOfWork.UserRepository.GetByUsernameAsync(user.Username, cancellationToken);
+        var token = _jwtProvider.Generate(createdUser!);
+
+        return Result.Success(new SignUpCommandResponse(token));
     }
 }

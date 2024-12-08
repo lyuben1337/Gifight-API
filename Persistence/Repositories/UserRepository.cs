@@ -11,9 +11,16 @@ public class UserRepository : Repository<User>, IUserRepository
     {
     }
 
-    public Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken = default)
+    public async Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken = default)
     {
-        return Set.AnyAsync(u => u.Username == username, cancellationToken);
+        return await Set.AnyAsync(u => u.Username == username, cancellationToken);
+    }
+
+    public async Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        return await Set.FirstOrDefaultAsync(
+            u => u.Username == username,
+            cancellationToken);
     }
 
     public override async Task<User?> GetByIdAsync(long id, CancellationToken cancellationToken = default)

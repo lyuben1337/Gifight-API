@@ -19,6 +19,7 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .MaximumLength(255)
             .Matches(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$")
             .WithMessage(
-                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character");
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+            );
     }
 }
