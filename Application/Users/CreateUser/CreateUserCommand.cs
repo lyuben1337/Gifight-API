@@ -4,5 +4,6 @@ namespace Application.Users.CreateUser;
 
 public record CreateUserCommand(
     string Username,
-    string Password
+    string Password,
+    string Role
 ) : ICommand<CreateUserCommandResponse>;

@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Application.Shared.Services.Security;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Security;
 
 public class PasswordEncoder : IPasswordEncoder
 {

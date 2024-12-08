@@ -7,11 +7,13 @@ using Domain.Entities;
 using Domain.Shared;
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Shared;
 
 namespace Presentation.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class UsersController(ISender sender) : ApiController(sender)
 {
     [HttpGet]

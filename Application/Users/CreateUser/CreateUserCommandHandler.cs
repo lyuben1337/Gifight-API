@@ -1,6 +1,7 @@
 using Application.Shared.Messaging;
-using Application.Shared.Services;
+using Application.Shared.Services.Security;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Errors;
 using Domain.Repositories;
 using Domain.Shared;
@@ -28,7 +29,8 @@ public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, Create
         var user = new User
         {
             Username = request.Username.ToLower(),
-            EncryptedPassword = _passwordEncoder.Encode(request.Password)
+            EncryptedPassword = _passwordEncoder.Encode(request.Password),
+            Role = Enum.Parse<UserRole>(request.Role)
         };
 
         var isUsernameOccupied =

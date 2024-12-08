@@ -1,11 +1,11 @@
+using Application.Shared.Services.Seed;
 using Domain.Repositories;
-using Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Context;
 using Persistence.Repositories;
-using Persistence.Shared;
+using Persistence.Seed;
 
 namespace Persistence;
 
@@ -19,6 +19,8 @@ public static class DependencyInjection
                 .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IDataExportService, DataExportService>();
+        services.AddScoped<IDataImportService, DataImportService>();
 
         return services;
     }

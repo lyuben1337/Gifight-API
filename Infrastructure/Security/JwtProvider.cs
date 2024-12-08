@@ -3,11 +3,10 @@ using System.Security.Claims;
 using System.Text;
 using Application.Shared.Services.Security;
 using Domain.Entities;
-using Infrastructure.Security;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Security;
 
 public class JwtProvider : IJwtProvider
 {

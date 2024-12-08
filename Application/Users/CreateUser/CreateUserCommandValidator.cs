@@ -1,3 +1,4 @@
+using Domain.Enums;
 using FluentValidation;
 
 namespace Application.Users.CreateUser;
@@ -20,6 +21,13 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .Matches(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$")
             .WithMessage(
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+            );
+
+        RuleFor(u => u.Role)
+            .NotEmpty()
+            .Must(role => Enum.TryParse<UserRole>(role, true, out _))
+            .WithMessage(
+                $"Invalid role specified. Allowed values are: {string.Join(", ", Enum.GetNames<UserRole>())}."
             );
     }
 }

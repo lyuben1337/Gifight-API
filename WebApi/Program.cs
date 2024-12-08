@@ -7,7 +7,7 @@ using WebApi.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if (args.Length > 0)
+if (args.Length > 0 && (args[0] == "seed" || args[0] == "export-data"))
 {
     await CommandLineTool.Run(args, builder.Configuration);
     return;

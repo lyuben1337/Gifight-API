@@ -7,11 +7,13 @@ using Domain.Entities;
 using Domain.Shared;
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Shared;
 
 namespace Presentation.Controllers;
 
+[Authorize]
 public class CardsController(ISender sender) : ApiController(sender)
 {
     [HttpGet]
@@ -35,6 +37,7 @@ public class CardsController(ISender sender) : ApiController(sender)
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(CreateCardCommand command, CancellationToken cancellationToken)
     {
         var response = await Sender.Send(command, cancellationToken);
@@ -44,6 +47,7 @@ public class CardsController(ISender sender) : ApiController(sender)
     }
 
     [HttpDelete("{id:long}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
     {
         var query = new DeleteCardCommand(id);
@@ -54,6 +58,7 @@ public class CardsController(ISender sender) : ApiController(sender)
     }
 
     [HttpPut("{id:long}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(long id, [FromBody] UpdateCardRequest request,
         CancellationToken cancellationToken)
     {

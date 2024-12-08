@@ -1,5 +1,5 @@
 using Application.Shared.Messaging;
-using Application.Shared.Services;
+using Application.Shared.Services.Security;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Repositories;

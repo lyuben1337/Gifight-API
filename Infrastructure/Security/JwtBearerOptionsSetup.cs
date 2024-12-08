@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Security;
 
-public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+public class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _jwtOptions;
 
@@ -14,20 +14,16 @@ public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
         _jwtOptions = jwtOptions.Value;
     }
 
-    public void Configure(JwtBearerOptions options)
+    public void PostConfigure(string? name, JwtBearerOptions options)
     {
-        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
+        options.TokenValidationParameters.ValidateIssuer = true;
+        options.TokenValidationParameters.ValidateAudience = true;
+        options.TokenValidationParameters.ValidateLifetime = true;
+        options.TokenValidationParameters.ValidateIssuerSigningKey = true;
 
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-
-            ValidIssuer = _jwtOptions.Issuer,
-            ValidAudience = _jwtOptions.Audience,
-            IssuerSigningKey = signingKey
-        };
+        options.TokenValidationParameters.ValidIssuer = _jwtOptions.Issuer;
+        options.TokenValidationParameters.ValidAudience = _jwtOptions.Audience;
+        options.TokenValidationParameters.IssuerSigningKey =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
     }
 }

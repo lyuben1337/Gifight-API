@@ -6,6 +6,7 @@ namespace WebApi.Utils;
 
 public static class CommandLineTool
 {
+    // TODO: ADD MIGRATION
     public static async Task Run(string[] args, IConfiguration configuration)
     {
         if (args.Length < 1)

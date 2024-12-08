@@ -1,4 +1,4 @@
-namespace Application.Shared.Services;
+namespace Application.Shared.Services.Security;
 
 public interface IPasswordEncoder
 {
