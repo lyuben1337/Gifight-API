@@ -8,5 +8,7 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 
+logs/
+
 # MacOS system files
 .DS_STORE
