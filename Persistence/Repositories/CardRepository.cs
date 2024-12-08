@@ -8,5 +8,5 @@ namespace Persistence.Repositories;
 
 public class CardRepository(DbContext context) : Repository<Card>(context), ICardRepository
 {
-    
+
 }

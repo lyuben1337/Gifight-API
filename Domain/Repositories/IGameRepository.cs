@@ -5,5 +5,5 @@ namespace Domain.Repositories;
 
 public interface IGameRepository : IRepository<Game>
 {
-    
+
 }

@@ -2,10 +2,10 @@ namespace Domain.Shared;
 
 public interface IRepository<T> where T : BaseEntity
 {
-    Task<IEnumerable<T>> All();
-    Task<T?> GetById(int id);
+    Task<IEnumerable<T>> AllAsync(CancellationToken cancellationToken);
+    Task<T?> GetByIdAsync(long id, CancellationToken cancellationToken);
 
-    Task<bool> Add(T entity);
+    Task<bool> AddAsync(T entity, CancellationToken cancellationToken);
 
-    Task<bool> Delete(int id); 
+    Task<bool> DeleteAsync(long id, CancellationToken cancellationToken);
 }

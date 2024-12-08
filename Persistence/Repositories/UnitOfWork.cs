@@ -19,10 +19,10 @@ public class UnitOfWork : IUnitOfWork
     public IUserRepository UserRepository { get; }
     public IGameRepository GameRepository { get; }
 
-    public async Task<int> SaveAsync(CancellationToken cancellationToken = default) 
+    public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
     {
         return await _context.SaveChangesAsync(cancellationToken);
     }
-    
+
     public void Dispose() => _context.Dispose();
 }

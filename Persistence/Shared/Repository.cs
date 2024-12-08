@@ -1,6 +1,5 @@
 using Domain.Shared;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Persistence.Shared;
 
@@ -15,16 +14,16 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         Set = Context.Set<T>();
     }
 
-    public virtual async Task<IEnumerable<T>> All()
+    public virtual async Task<IEnumerable<T>> AllAsync(CancellationToken cancellationToken = default)
     {
-        return await Set.ToListAsync();
+        return await Set.ToListAsync(cancellationToken);
     }
 
-    public virtual async Task<T?> GetById(int id)
+    public virtual async Task<T?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
         try
         {
-            return await Set.FindAsync(id);
+            return await Set.FindAsync([id], cancellationToken);
         }
         catch (Exception)
         {
@@ -32,11 +31,11 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         }
     }
 
-    public virtual async Task<bool> Add(T entity)
+    public virtual async Task<bool> AddAsync(T entity, CancellationToken cancellationToken = default)
     {
         try
         {
-            await Set.AddAsync(entity);
+            await Set.AddAsync(entity, cancellationToken);
             return true;
         }
         catch (Exception)
@@ -45,20 +44,14 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         }
     }
 
-    public virtual async Task<bool> Delete(int id)
+    public virtual async Task<bool> DeleteAsync(long id, CancellationToken cancellationToken = default)
     {
         try
         {
-            var entity = await Set.FindAsync(id);
-            if (entity != null)
-            {
-                Set.Remove(entity);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var entity = await GetByIdAsync(id, cancellationToken);
+            if (entity == null) return false;
+            Set.Remove(entity);
+            return true;
         }
         catch (Exception)
         {

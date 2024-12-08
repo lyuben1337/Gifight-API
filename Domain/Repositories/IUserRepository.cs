@@ -5,5 +5,5 @@ namespace Domain.Repositories;
 
 public interface IUserRepository : IRepository<User>
 {
-    
+    Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken);
 }

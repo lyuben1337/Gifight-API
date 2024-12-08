@@ -1,11 +1,14 @@
 using Application;
 using Persistence;
+using Presentation;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddPresentation();
+
 builder.Services.AddSwaggerGen();
 
 builder.Host.UseSerilog((context, configuration) =>

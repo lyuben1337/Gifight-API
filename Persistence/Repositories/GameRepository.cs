@@ -7,5 +7,5 @@ namespace Persistence.Repositories;
 
 public class GameRepository(DbContext context) : Repository<Game>(context), IGameRepository
 {
-    
+
 }
