@@ -1,4 +1,4 @@
-using Application.Shared;
+using Application.Shared.Messaging;
 using Application.Users.DTOs;
 using Domain.Entities;
 using Domain.Repositories;

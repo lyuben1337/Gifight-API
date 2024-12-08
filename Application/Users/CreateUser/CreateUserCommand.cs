@@ -1,6 +1,4 @@
-using Application.Shared;
-using Domain.Shared;
-using MediatR;
+using Application.Shared.Messaging;
 
 namespace Application.Users.CreateUser;
 

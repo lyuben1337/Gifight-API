@@ -1,4 +1,4 @@
-using Application.Shared;
+using Application.Shared.Messaging;
 
 namespace Application.Users.GetUser;
 

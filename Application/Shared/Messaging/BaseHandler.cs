@@ -3,7 +3,7 @@ using Domain.Shared;
 using FluentValidation;
 using MediatR;
 
-namespace Application.Shared;
+namespace Application.Shared.Messaging;
 
 public abstract class BaseHandler<TRequest, TResponse>
     : IRequestHandler<TRequest, Result<TResponse>>
@@ -26,8 +26,7 @@ public abstract class BaseHandler<TRequest, TResponse>
 
             if (!validationResult.IsValid)
             {
-                var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
-                return Result.Failure<TResponse>(Error.ValidationFailed(string.Join("; ", errors)));
+                return Result.Failure<TResponse>(Error.ValidationFailed(validationResult.ToString()));
             }
         }
 

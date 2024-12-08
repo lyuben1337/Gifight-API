@@ -3,20 +3,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Shared;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public abstract class Repository<T> : IRepository<T> where T : BaseEntity
 {
     protected DbContext Context;
     protected DbSet<T> Set;
 
-    public Repository(DbContext context)
+    protected Repository(DbContext context)
     {
         Context = context;
         Set = Context.Set<T>();
     }
 
-    public virtual async Task<IEnumerable<T>> AllAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<IPage<T>> AllAsync(int page = 1, int pageSize = 0,
+        CancellationToken cancellationToken = default)
     {
-        return await Set.ToListAsync(cancellationToken);
+        return await Page<T>.CreateAsync(Set, page, pageSize, cancellationToken);
     }
 
     public virtual async Task<T?> GetByIdAsync(long id, CancellationToken cancellationToken = default)

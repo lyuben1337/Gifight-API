@@ -3,7 +3,7 @@ using Domain.Shared;
 using FluentValidation;
 using MediatR;
 
-namespace Application.Shared;
+namespace Application.Shared.Messaging;
 
 public abstract class CommandHandler<TCommand, TResponse> : BaseHandler<TCommand, TResponse>
     where TCommand : ICommand<TResponse>

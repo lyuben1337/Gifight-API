@@ -1,4 +1,4 @@
-using Application.Shared;
+using Application.Shared.Messaging;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Repositories;
@@ -18,17 +18,17 @@ public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, Create
     protected override async Task<Result<CreateUserResponse>> HandleCommand(CreateUserCommand request,
         CancellationToken cancellationToken)
     {
-        var isUsernameOccupied =
-            await UnitOfWork.UserRepository.ExistsByUsernameAsync(request.Username, cancellationToken);
-
-        if (isUsernameOccupied)
-            return Result.Failure<CreateUserResponse>(UserError.UsernameOccupied(request.Username));
-
         var user = new User
         {
-            Username = request.Username,
+            Username = request.Username.ToLower(),
             EncryptedPassword = request.Password
         };
+
+        var isUsernameOccupied =
+            await UnitOfWork.UserRepository.ExistsByUsernameAsync(user.Username, cancellationToken);
+
+        if (isUsernameOccupied)
+            return Result.Failure<CreateUserResponse>(UserError.UsernameOccupied(user.Username));
 
         await UnitOfWork.UserRepository.AddAsync(user, cancellationToken);
         await UnitOfWork.SaveAsync(cancellationToken);

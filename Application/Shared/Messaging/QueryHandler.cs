@@ -2,7 +2,7 @@ using Domain.Repositories;
 using Domain.Shared;
 using FluentValidation;
 
-namespace Application.Shared;
+namespace Application.Shared.Messaging;
 
 public abstract class QueryHandler<TQuery, TResponse> : BaseHandler<TQuery, TResponse>
     where TQuery : IQuery<TResponse>
