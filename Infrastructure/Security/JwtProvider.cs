@@ -1,7 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Application.Shared.Services;
+using Application.Shared.Services.Security;
 using Domain.Entities;
 using Infrastructure.Security;
 using Microsoft.Extensions.Options;
@@ -23,7 +23,8 @@ public class JwtProvider : IJwtProvider
         var claims = new Claim[]
         {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.Nickname, user.Username)
+            new(JwtRegisteredClaimNames.Nickname, user.Username),
+            new("role", user.Role.ToString())
         };
 
         var signingCredentials = new SigningCredentials(

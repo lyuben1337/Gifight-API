@@ -1,5 +1,5 @@
 using System.Security.Cryptography;
-using Application.Shared.Services;
+using Application.Shared.Services.Security;
 
 namespace Infrastructure.Services;
 

@@ -3,8 +3,15 @@ using Infrastructure;
 using Persistence;
 using Presentation;
 using Serilog;
+using WebApi.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
+
+if (args.Length > 0)
+{
+    await CommandLineTool.Run(args, builder.Configuration);
+    return;
+}
 
 builder.Services.AddInfrastructure();
 builder.Services.AddPersistence(builder.Configuration);
@@ -23,9 +30,11 @@ app.UseSwaggerUI();
 
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
+
 app.UseRouting();
-app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
