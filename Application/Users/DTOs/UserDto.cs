@@ -1,5 +1,9 @@
+using Application.Cards.DTOs;
+
 namespace Application.Users.DTOs;
 
 public record UserDto(
-    string Username
+    long Id,
+    string Username,
+    List<CardDto> Cards
 );

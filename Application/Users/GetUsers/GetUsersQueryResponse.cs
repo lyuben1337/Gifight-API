@@ -3,4 +3,4 @@ using Domain.Shared;
 
 namespace Application.Users.GetUsers;
 
-public record GetUsersQueryResponse(IPage<UserDto> Users);
+public record GetUsersQueryResponse(IPage<UserShortDto> Users);

@@ -1,8 +1,8 @@
-using Application.Users.CreateUser;
-using Application.Users.DeleteUser;
-using Application.Users.GetUser;
-using Application.Users.GetUsers;
-using Application.Users.UpdateUser;
+using Application.Cards.CreateCard;
+using Application.Cards.DeleteCard;
+using Application.Cards.GetCard;
+using Application.Cards.GetCards;
+using Application.Cards.UpdateCard;
 using Domain.Entities;
 using Domain.Shared;
 using Mapster;
@@ -12,10 +12,10 @@ using Presentation.Shared;
 
 namespace Presentation.Controllers;
 
-public class UsersController(ISender sender) : ApiController(sender)
+public class CardsController(ISender sender) : ApiController(sender)
 {
     [HttpGet]
-    public async Task<ActionResult<GetUsersQueryResponse>> GetAll([FromQuery] GetUsersQuery query,
+    public async Task<ActionResult<GetCardsQueryResponse>> GetAll([FromQuery] GetCardsQuery query,
         CancellationToken cancellationToken)
     {
         var response = await Sender.Send(query, cancellationToken);
@@ -25,9 +25,9 @@ public class UsersController(ISender sender) : ApiController(sender)
     }
 
     [HttpGet("{id:long}")]
-    public async Task<ActionResult<GetUserQueryResponse>> Get(long id, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetCardQueryResponse>> Get(long id, CancellationToken cancellationToken)
     {
-        var query = new GetUserQuery(id);
+        var query = new GetCardQuery(id);
         var response = await Sender.Send(query, cancellationToken);
         if (response.IsSuccess) return Ok(response.Value);
 
@@ -35,8 +35,7 @@ public class UsersController(ISender sender) : ApiController(sender)
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(CreateUserCommand command,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> Create(CreateCardCommand command, CancellationToken cancellationToken)
     {
         var response = await Sender.Send(command, cancellationToken);
         if (response.IsSuccess) return CreatedAtAction(nameof(Get), new { id = response.Value.Id }, null);
@@ -47,7 +46,7 @@ public class UsersController(ISender sender) : ApiController(sender)
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
     {
-        var query = new DeleteUserCommand(id);
+        var query = new DeleteCardCommand(id);
         var response = await Sender.Send(query, cancellationToken);
         if (response.IsSuccess) return NoContent();
 
@@ -55,15 +54,14 @@ public class UsersController(ISender sender) : ApiController(sender)
     }
 
     [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update(long id, [FromBody] UpdateUserRequest request,
+    public async Task<IActionResult> Update(long id, [FromBody] UpdateCardRequest request,
         CancellationToken cancellationToken)
     {
-        var command = request.Adapt<UpdateUserCommand>() with { Id = id };
+        var command = request.Adapt<UpdateCardCommand>() with { Id = id };
         var response = await Sender.Send(command, cancellationToken);
         if (response.IsSuccess) return NoContent();
 
-        if (response.Error == EntityError<User>.NotFound(id)) return NotFound(response.Error);
-        if (response.Error == EntityError<Card>.NotFound(request.CardIds)) return NotFound(response.Error);
+        if (response.Error == EntityError<Card>.NotFound(id)) return NotFound(response.Error);
 
         return BadRequest(response.Error);
     }

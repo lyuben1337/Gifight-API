@@ -1,5 +1,5 @@
 namespace Application.Users.CreateUser;
 
-public record CreateUserResponse(
+public record CreateUserCommandResponse(
     long Id
 );

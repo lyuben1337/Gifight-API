@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Application.Cards.CreateCard;
+namespace Application.Cards.UpdateCard;
 
-public class CreateCardCommandValidator : AbstractValidator<CreateCardCommand>
+public class UpdateCardCommandValidator : AbstractValidator<UpdateCardCommand>
 {
-    public CreateCardCommandValidator()
+    public UpdateCardCommandValidator()
     {
         RuleFor(c => c.Title)
             .NotEmpty()

@@ -6,4 +6,4 @@ public record CreateCardCommand(
     string Title,
     string ImageUrl,
     int Power
-) : ICommand<CreateCardResponse>;
+) : ICommand<CreateCardCommandResponse>;

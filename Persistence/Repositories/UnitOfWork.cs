@@ -27,7 +27,7 @@ public class UnitOfWork : IUnitOfWork
             .Where(e => e is { Entity: BaseEntity, State: EntityState.Modified })
             .Select(e => (BaseEntity)e.Entity);
 
-        foreach (var entity in entities) entity.UpdatedAt = DateTimeOffset.Now;
+        foreach (var entity in entities) entity.UpdatedAt = DateTime.UtcNow;
 
         return await _context.SaveChangesAsync(cancellationToken);
     }

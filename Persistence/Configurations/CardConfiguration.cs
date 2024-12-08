@@ -21,10 +21,6 @@ public class CardConfiguration : BaseEntityConfiguration<Card>
         builder.Property(c => c.Power)
             .IsRequired();
 
-        builder.HasMany(c => c.Users)
-            .WithMany(u => u.Cards)
-            .UsingEntity<UserCard>();
-
         builder.HasIndex(u => u.Title)
             .IsUnique();
     }

@@ -8,14 +8,14 @@ using Mapster;
 
 namespace Application.Users.CreateUser;
 
-public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, CreateUserResponse>
+public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, CreateUserCommandResponse>
 {
     public CreateUserCommandHandler(IUnitOfWork unitOfWork, IValidator<CreateUserCommand> validator)
         : base(unitOfWork, validator)
     {
     }
 
-    protected override async Task<Result<CreateUserResponse>> HandleCommand(CreateUserCommand request,
+    protected override async Task<Result<CreateUserCommandResponse>> HandleCommand(CreateUserCommand request,
         CancellationToken cancellationToken)
     {
         var user = new User
@@ -28,11 +28,11 @@ public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, Create
             await UnitOfWork.UserRepository.ExistsByUsernameAsync(user.Username, cancellationToken);
 
         if (isUsernameOccupied)
-            return Result.Failure<CreateUserResponse>(UserError.UsernameOccupied(user.Username));
+            return Result.Failure<CreateUserCommandResponse>(UserError.UsernameOccupied(user.Username));
 
         await UnitOfWork.UserRepository.AddAsync(user, cancellationToken);
         await UnitOfWork.SaveAsync(cancellationToken);
 
-        return Result.Success(user.Adapt<CreateUserResponse>());
+        return Result.Success(user.Adapt<CreateUserCommandResponse>());
     }
 }

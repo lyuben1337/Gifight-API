@@ -1,3 +1,4 @@
+using Application.Cards.DTOs;
 using Application.Shared.Messaging;
 using Application.Users.DTOs;
 using Domain.Entities;
@@ -17,9 +18,13 @@ public class GetUserQueryHandler : QueryHandler<GetUserQuery, GetUserQueryRespon
         CancellationToken cancellationToken)
     {
         var user = await UnitOfWork.UserRepository.GetByIdAsync(request.Id, cancellationToken);
+        if (user == null) return Result.Failure<GetUserQueryResponse>(EntityError<User>.NotFound(request.Id));
 
-        return user == null
-            ? Result.Failure<GetUserQueryResponse>(EntityError<User>.NotFound(request.Id))
-            : Result.Success(new GetUserQueryResponse(user.Adapt<UserDto>()));
+        var userCards = user.UserCards
+            .Select(uc => uc.Card)
+            .Adapt<List<CardDto>>();
+
+        var userDto = user.Adapt<UserDto>() with { Cards = userCards };
+        return Result.Success(new GetUserQueryResponse(userDto));
     }
 }

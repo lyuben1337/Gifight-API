@@ -19,7 +19,7 @@ public class GetUsersQueryHandler : QueryHandler<GetUsersQuery, GetUsersQueryRes
         CancellationToken cancellationToken)
     {
         var usersPage = await UnitOfWork.UserRepository.AllAsync(request.Page, request.PageSize, cancellationToken);
-        var usersDtoPage = PageDto<UserDto>.FromPage(usersPage, user => user.Adapt<UserDto>());
+        var usersDtoPage = PageDto<UserDto>.FromPage(usersPage, user => user.Adapt<UserShortDto>());
 
         return Result.Success(new GetUsersQueryResponse(usersDtoPage));
     }
