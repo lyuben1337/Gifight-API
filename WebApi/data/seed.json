@@ -3,68 +3,44 @@
     {
       "Username": "admin",
       "EncryptedPassword": "MgTd\u002BPI0zOkc07LKmasMYQ==;am2Ae6FMmZaFtJJKOLZWaw==",
-      "Role": 1,
-      "Id": 1,
-      "CreatedAt": "2024-12-08T19:56:22.557708+00:00",
-      "UpdatedAt": "2024-12-08T19:56:22.557708+00:00"
+      "Role": 1
     }
   ],
   "Cards": [
     {
       "Title": "Zeliboba",
       "ImageUrl": "https://media.tenor.com/sWwGyR81eTAAAAAM/%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9-%D0%B6%D0%BC%D1%8B%D1%85.gif",
-      "Power": 10,
-      "Id": 1,
-      "CreatedAt": "2024-12-08T13:23:24.06502+00:00",
-      "UpdatedAt": "2024-12-08T13:23:24.06502+00:00"
+      "Power": 10
     },
     {
       "Title": "Serdce Papicha",
       "ImageUrl": "https://media.tenor.com/74QM2zVnaiMAAAAd/papich-%D0%BF%D0%B0%D0%BF%D0%B8%D1%87.gif",
-      "Power": 4,
-      "Id": 2,
-      "CreatedAt": "2024-12-08T13:26:35.657575+00:00",
-      "UpdatedAt": "2024-12-08T13:26:35.657575+00:00"
+      "Power": 4
     },
     {
       "Title": "F-16",
       "ImageUrl": "https://media.tenor.com/z1MSLYPT74EAAAAd/zelensky-ukraine.gif",
-      "Power": 5,
-      "Id": 3,
-      "CreatedAt": "2024-12-08T13:29:24.960003+00:00",
-      "UpdatedAt": "2024-12-08T13:29:24.960003+00:00"
+      "Power": 5
     },
     {
       "Title": "Nuts",
       "ImageUrl": "https://media.tenor.com/UXLMBxxNUsQAAAAd/papich.gif",
-      "Power": 2,
-      "Id": 4,
-      "CreatedAt": "2024-12-08T13:31:03.240698+00:00",
-      "UpdatedAt": "2024-12-08T13:31:03.240698+00:00"
+      "Power": 2
     },
     {
       "Title": "Gachimuchi",
       "ImageUrl": "https://media.tenor.com/BSYeNq2POsQAAAAC/gachimuchi.gif",
-      "Power": 7,
-      "Id": 5,
-      "CreatedAt": "2024-12-08T13:35:01.257188+00:00",
-      "UpdatedAt": "2024-12-08T13:35:01.257188+00:00"
+      "Power": 7
     },
     {
       "Title": "Gachi",
       "ImageUrl": "https://media.tenor.com/Dx8XeOcQDpUAAAAd/gachi-gachi-muchi.gif",
-      "Power": 7,
-      "Id": 6,
-      "CreatedAt": "2024-12-08T13:35:40.282429+00:00",
-      "UpdatedAt": "2024-12-08T13:35:40.282429+00:00"
+      "Power": 7
     },
     {
       "Title": "Billy",
       "ImageUrl": "https://media.tenor.com/aBs-tJmtyQAAAAAd/gachimuchi-billy-herrington.gif",
-      "Power": 12,
-      "Id": 7,
-      "CreatedAt": "2024-12-08T13:38:43.590325+00:00",
-      "UpdatedAt": "2024-12-08T13:38:43.590325+00:00"
+      "Power": 12
     }
   ],
   "Games": [],

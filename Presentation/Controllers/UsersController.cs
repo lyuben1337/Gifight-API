@@ -13,7 +13,7 @@ using Presentation.Shared;
 
 namespace Presentation.Controllers;
 
-[Authorize(Roles = "Admin")]
+[Authorize]
 public class UsersController(ISender sender) : ApiController(sender)
 {
     [HttpGet]
@@ -37,6 +37,7 @@ public class UsersController(ISender sender) : ApiController(sender)
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> Create(CreateUserCommand command,
         CancellationToken cancellationToken)
     {
@@ -47,6 +48,7 @@ public class UsersController(ISender sender) : ApiController(sender)
     }
 
     [HttpDelete("{id:long}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
     {
         var query = new DeleteUserCommand(id);
@@ -57,6 +59,7 @@ public class UsersController(ISender sender) : ApiController(sender)
     }
 
     [HttpPut("{id:long}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(long id, [FromBody] UpdateUserRequest request,
         CancellationToken cancellationToken)
     {

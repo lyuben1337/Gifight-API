@@ -14,7 +14,6 @@ public static class DependencyInjection
         services.AddAuthorization();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
         services.AddScoped<IJwtProvider, JwtProvider>();
-
         services.AddScoped<IPasswordEncoder, PasswordEncoder>();
 
         return services;

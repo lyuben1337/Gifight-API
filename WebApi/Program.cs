@@ -20,6 +20,16 @@ builder.Services.AddPresentation();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowClient", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
@@ -31,10 +41,11 @@ app.UseSwaggerUI();
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
+app.UseCors("AllowClient");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+
 
 app.Run();
